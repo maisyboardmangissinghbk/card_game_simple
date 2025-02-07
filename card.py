@@ -85,7 +85,8 @@ usernameOne = enteredUsername.title()
 validUsers.remove(enteredUsername.upper()) # so one doesn't go against themselves
 
 while enteredUsername.upper() not in validUsers:
-    enteredUsername = input('\nEnter player 2 username:  ')
+    enteredUsername = input(
+        '\nEnter player 2 username:  ')
     if enteredUsername.upper() not in validUsers:
         print('Invalid, try again!')
 print(f'\nWelcome, {enteredUsername.title()}')
@@ -107,24 +108,45 @@ while len(deck) != 0:
     input(f'{usernameTwo}, press [Return] to draw next card: ')
     drawnPlayerTwoStr = deck[1]
     print(f'{usernameTwo} drew {drawnPlayerTwoStr}')
-    drawnPlayerOne = Card(drawnPlayerOneStr[0], drawnPlayerOneStr[1:])
-    drawnPlayerTwo = Card(drawnPlayerTwoStr[0], drawnPlayerTwoStr[1:])
-    deck.pop(0)
-    deck.pop(0)
 
+    drawnPlayerOneStrColor = drawnPlayerOneStr[0]
+    drawnPlayerOneStrValue = int(drawnPlayerOneStr[1:])
+    drawnPlayerTwoStrColor = drawnPlayerTwoStr[0]
+    drawnPlayerTwoStrValue = int(drawnPlayerTwoStr[1:])
+    def player_one_win():
+        if drawnPlayerOneStrValue == drawnPlayerTwoStrValue:
+            if drawnPlayerOneStrValue < drawnPlayerTwoStrValue:
+                return True
+            else:
+                return False
+        else:
+            if drawnPlayerOneStrColor == 'R':
+                if drawnPlayerTwoStrColor == 'B':
+                    return False
+                else:
+                    return True
+            elif drawnPlayerOneStrColor == 'Y':
+                if drawnPlayerTwoStrColor == 'B':
+                    return True
+                else:
+                    return False
+            else:
+                if drawnPlayerTwoStrColor == 'Y':
+                    return False
+                else:
+                    return True
+    deck.pop(0)
+    deck.pop(0)
     # add cards to winner deck
-    if drawnPlayerOne > drawnPlayerTwo:
-        playerOne.append(drawnPlayerOne)
-        playerOne.append(drawnPlayerTwo)
+    if player_one_win():
+        playerOne.append(drawnPlayerOneStr)
+        playerOne.append(drawnPlayerTwoStr)
         print(f'{usernameOne} wins! - {len(deck)} cards left')
     else:
-        playerTwo.append(drawnPlayerTwo)
-        playerTwo.append(drawnPlayerOne)
+        playerTwo.append(drawnPlayerTwoStr)
+        playerTwo.append(drawnPlayerOneStr)
         print(f'{usernameTwo} wins! - {len(deck)} cards left')
     input('\nPress [Return] to continue:  ')
-
-    del drawnPlayerOne
-    del drawnPlayerTwo
 
 # display winner
 if len(playerOne) > len(playerTwo):
