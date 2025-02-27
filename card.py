@@ -21,49 +21,14 @@ validUsers = [ 'FOO', 'BAR', 'MAISY']
 enteredUsername = ''
 SUIT_SIZE = 10
 
-
-# card class
-class Card:
-
-    def __init__(self, color, value):
-        self.color = color
-        self.value = value
-
-    def __repr__(self):
-        # used identically to __str__ in this
-        return f'{self.color}{self.value}'
-
-    def __eq__(self, other):
-        # this isn't really needed but it's easy to implement
-        return (self.color == other.color) and (self.value == other.value)
-
-    def __lt__(self, other):
-        if isinstance(other, Card):
-            # see multiline at the beginning
-            if self.color == other.color:
-                if self.value < other.value:
-                    return True
-                else:
-                    return  False
-            else:
-                if self.color == 'R':
-                    if other.color == 'B':
-                        return False
-                    else:
-                        return True
-                elif self.color == 'Y':
-                    if other.color == 'B':
-                        return True
-                    else:
-                        return False
-                else:
-                    if other.color == 'Y':
-                        return False
-                    else:
-                        return True
-
 try:
-    file = open('scores.txt', 'r')
+    try:
+        file = open('scores.txt', 'r')
+    except:
+        file = open('scores.txt','w')
+        file.close()
+        file = open('scored.txt','r') #this is awful botched code (e.g. nested try blocks) but is needed to support
+        #python 2.x
     scores = [line.strip() for line in file.readlines()]
     scores.sort()
     scores.reverse()
