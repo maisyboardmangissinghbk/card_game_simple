@@ -74,11 +74,12 @@ while len(deck) != 0:
     drawnPlayerTwoStr = deck[1]
     print(f'{usernameTwo} drew {drawnPlayerTwoStr}')
 
-    drawnPlayerOneStrColor = drawnPlayerOneStr[0]
-    drawnPlayerOneStrValue = int(drawnPlayerOneStr[1:])
-    drawnPlayerTwoStrColor = drawnPlayerTwoStr[0]
-    drawnPlayerTwoStrValue = int(drawnPlayerTwoStr[1:])
+
     def player_one_win():
+        drawnPlayerOneStrColor = drawnPlayerOneStr[0]
+        drawnPlayerOneStrValue = int(drawnPlayerOneStr[1:])
+        drawnPlayerTwoStrColor = drawnPlayerTwoStr[0]
+        drawnPlayerTwoStrValue = int(drawnPlayerTwoStr[1:])
         if drawnPlayerOneStrValue == drawnPlayerTwoStrValue:
             if drawnPlayerOneStrValue < drawnPlayerTwoStrValue:
                 return True
